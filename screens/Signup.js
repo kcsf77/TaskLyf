@@ -111,14 +111,14 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    color: '#333',
+    color: '#888',
     marginBottom: 5,
   },
   input: {
     borderWidth: 1,
     borderColor: '#DDD',
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 10,
     marginBottom: 25,
   },
   nextButton: {
