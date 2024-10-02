@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Image } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons'; // Import the icon library
 
 const InfoScreen = ({ navigation }) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-
+    const [passwordVisible, setPasswordVisible] = useState(true); // For Password visibility
+    const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(true); // For Confirm Password visibility
 
     return (
         <View style={styles.container}>
@@ -15,21 +17,17 @@ const InfoScreen = ({ navigation }) => {
                 style={styles.backgroundImage}
                 blurRadius={5}
             >
-
                 <View style={styles.overlay} />
                 <View style={styles.logoContainer}>
-
                     <Image
                         source={require('../assets/logo.png')}
                         style={{ opacity: 1 }}
                     />
-
                 </View>
 
                 <View style={styles.InfoContainer}>
                     <Text style={styles.Title}>Personal Information</Text>
 
-                    
                     <View style={styles.nameContainer}>
                         <View style={styles.nameInputContainer}>
                             <Text style={styles.label}>First Name</Text>
@@ -51,30 +49,53 @@ const InfoScreen = ({ navigation }) => {
                         </View>
                     </View>
 
-                    {/* Password and Confirm Password Inputs */}
+                    {/* Password Input with Eye Icon */}
                     <Text style={styles.label}>Password</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Password"
-                        secureTextEntry
-                        value={password}
-                        onChangeText={setPassword}
-                    />
+                    <View style={styles.passwordContainer}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Password"
+                            secureTextEntry={passwordVisible}
+                            value={password}
+                            onChangeText={setPassword}
+                        />
+                        <TouchableOpacity
+                            style={styles.eyeIcon}
+                            onPress={() => setPasswordVisible(!passwordVisible)}
+                        >
+                            <Icon
+                                name={passwordVisible ? 'eye-off-outline' : 'eye-outline'}
+                                size={24}
+                                color="#D3D3D3"
+                            />
+                        </TouchableOpacity>
+                    </View>
 
+                    {/* Confirm Password Input with Eye Icon */}
                     <Text style={styles.label}>Confirm Password</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Confirm Password"
-                        secureTextEntry
-                        value={confirmPassword}
-                        onChangeText={setConfirmPassword}
-                    />
+                    <View style={styles.passwordContainer}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Confirm Password"
+                            secureTextEntry={confirmPasswordVisible}
+                            value={confirmPassword}
+                            onChangeText={setConfirmPassword}
+                        />
+                        <TouchableOpacity
+                            style={styles.eyeIcon}
+                            onPress={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
+                        >
+                            <Icon
+                                name={confirmPasswordVisible ? 'eye-off-outline' : 'eye-outline'}
+                                size={24}
+                                color="#D3D3D3"
+                            />
+                        </TouchableOpacity>
+                    </View>
 
                     <TouchableOpacity style={styles.loginButton}>
                         <Text style={styles.loginButtonText}>Sign up</Text>
                     </TouchableOpacity>
-
-
                 </View>
             </ImageBackground>
         </View>
@@ -155,6 +176,15 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    passwordContainer: {
+        position: 'relative',
+        marginBottom: 15,
+    },
+    eyeIcon: {
+        position: 'absolute',
+        right: 15,
+        top: 7,
     },
 });
 
