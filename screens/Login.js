@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, I
 import Icon from 'react-native-vector-icons/Ionicons'; // Import the icon library
 
 const LoginScreen = ({ navigation }) => {
-  const [mobileNumber, setMobileNumber] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('+63'); // Initial value includes country code
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true); // For Password visibility
 
@@ -22,6 +22,15 @@ const LoginScreen = ({ navigation }) => {
       );
     } else {
       Alert.alert('Login Failed', 'Invalid mobile number or password. Please try again.');
+    }
+  };
+
+  const handleMobileNumberChange = (text) => {
+    // If the user inputs a string, keep the +63 prefix and concatenate the rest
+    if (text.length >= 3) {
+      setMobileNumber(`+63${text.slice(3)}`);
+    } else {
+      setMobileNumber('+63'); // Reset to just the country code if text length is less than 3
     }
   };
 
@@ -46,10 +55,10 @@ const LoginScreen = ({ navigation }) => {
           <Text style={styles.label}>Mobile Number</Text>
           <TextInput
             style={styles.input}
-            placeholder="+639XXXXXXXXX"
+            placeholder="Mobile Number"
             keyboardType="phone-pad"
             value={mobileNumber}
-            onChangeText={setMobileNumber}
+            onChangeText={handleMobileNumberChange} // Updated function for handling input
           />
 
           <Text style={styles.label}>Password</Text>
