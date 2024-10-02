@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Image, Alert } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons'; // Import the icon library
 
 const LoginScreen = ({ navigation }) => {
   const [mobileNumber, setMobileNumber] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(true); // For Password visibility
 
   const handleLogin = () => {
-    // Static account credentials
     const validMobileNumber = '+639566776559';
     const validPassword = 'koypogi01';
 
-    // Check if entered credentials match the static account
     if (mobileNumber === validMobileNumber && password === validPassword) {
-      // Show success alert
       Alert.alert(
         'Login Successful',
         'Welcome back!',
@@ -22,7 +21,6 @@ const LoginScreen = ({ navigation }) => {
         { cancelable: false }
       );
     } else {
-      // Show an error alert if credentials do not match
       Alert.alert('Login Failed', 'Invalid mobile number or password. Please try again.');
     }
   };
@@ -55,13 +53,25 @@ const LoginScreen = ({ navigation }) => {
           />
 
           <Text style={styles.label}>Password</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            secureTextEntry
-            value={password}
-            onChangeText={setPassword}
-          />
+          <View style={styles.passwordContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              secureTextEntry={passwordVisible}
+              value={password}
+              onChangeText={setPassword}
+            />
+            <TouchableOpacity
+              style={styles.eyeIcon}
+              onPress={() => setPasswordVisible(!passwordVisible)}
+            >
+              <Icon
+                name={passwordVisible ? 'eye-off-outline' : 'eye-outline'}
+                size={24}
+                color="#BFBFBF"
+              />
+            </TouchableOpacity>
+          </View>
 
           <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
             <Text style={styles.loginButtonText}>Log In</Text>
@@ -109,7 +119,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   overlay: {
     position: 'absolute',
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
@@ -212,6 +221,15 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  passwordContainer: {
+    position: 'relative',
+    marginBottom: 15,
+  },
+  eyeIcon: {
+    position: 'absolute',
+    right: 15,
+    top: 7,
   },
 });
 
