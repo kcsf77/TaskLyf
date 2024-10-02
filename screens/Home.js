@@ -8,7 +8,7 @@ import {
   TextInput,
   SafeAreaView,
   ScrollView,
-  FlatList, // Import FlatList
+  FlatList,
 } from 'react-native';
 import * as Location from 'expo-location';
 
@@ -28,10 +28,52 @@ const popularServicesData = [
   {
     id: '3',
     image: require('../assets/Popular Services/Rectangle 103 2.png'),
-    title: 'Event Makeup Artist',
+    title: 'Makeup Artist',
     price: '₱399',
   },
 ];
+
+const topServiceProvidersData = [
+  {
+    id: '1',
+    image: require('../assets/TopServiceProvider/Profil Pic (1).png'),
+    name: 'John Doe',
+    profession: 'Computer Technician',
+    rating: 5.0,
+    reviews: '(50)',
+  },
+  {
+    id: '2',
+    image: require('../assets/TopServiceProvider/Profil Pic (2).png'),
+    name: 'Will Smith',
+    profession: 'Electrician',
+    rating: 3.0,
+    reviews: '(30)',
+  },
+  {
+    id: '3',
+    image: require('../assets/TopServiceProvider/Profil Pic.png'),
+    name: 'Brien Ong',
+    profession: 'Aircon Cleaner',
+    rating: 2.0,
+    reviews: '(25)',
+  },
+];
+
+// StarRating Component
+const StarRating = ({ rating }) => {
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    stars.push(
+      <Image
+        key={i}
+        source={require('../assets/icons/Star 1.png')} // Replace with the path to your star icon
+        style={[styles.starIcon, { opacity: i <= rating ? 1 : 0.5 }]}
+      />
+    );
+  }
+  return <View style={styles.ratingContainer}>{stars}</View>;
+};
 
 const Home = () => {
   const [currentLocation, setCurrentLocation] = useState('Getting location...');
@@ -117,11 +159,8 @@ const Home = () => {
             style={styles.promoImage}  
           />
           <View style={styles.promoOverlay}>
-            {/* Promo Text */}
             <Text style={styles.promoHeaderText}>Book Services</Text>
             <Text style={styles.promoSubText}>in your area with ease</Text>
-            
-            {/* Book Button */}
             <TouchableOpacity style={styles.bookButton}>
               <Text style={styles.bookButtonText}>Book Now</Text>
             </TouchableOpacity>
@@ -170,6 +209,29 @@ const Home = () => {
             contentContainerStyle={styles.popularServicesContainer}
           />
         </View>
+
+        {/* Top Service Provider Section */}
+        <View style={styles.topServiceProviderSection}>
+          <Text style={styles.topServiceProviderHeaderText}>Top Service Providers</Text>
+          <FlatList
+            data={topServiceProvidersData}
+            renderItem={({ item }) => (
+              <TouchableOpacity style={styles.topServiceProviderCard}>
+                <Image source={item.image} style={styles.topServiceProviderImage} />
+                <Text style={styles.topServiceProviderName}>{item.name}</Text>
+                <Text style={styles.topServiceProviderProfession}>{item.profession}</Text>
+                <StarRating rating={item.rating} />
+                <View style={styles.ratingContainer}>
+                  <Text style={styles.topServiceProviderReviews}>{item.reviews}</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+            keyExtractor={item => item.id}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.topServiceProviderContainer}
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -182,11 +244,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flexGrow: 1,
-    paddingBottom: 70, // Add padding to bottom for bottom navigation
-  },
-  scrollView: {
-    // Optional: Add background color if needed
-    // backgroundColor: 'lightgray',
+    paddingBottom: 72,
   },
   header: {
     flexDirection: 'row',
@@ -319,15 +377,15 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   popularServicesContainer: {
-    paddingHorizontal: 5, // Add horizontal padding to center the FlatList
+    paddingHorizontal: 5,
   },
   popularServiceCard: {
     backgroundColor: '#f9f9f9',
     borderRadius: 10,
     padding: 10,
     alignItems: 'center',
-    width: 150, // Set width to give each card a consistent size
-    marginRight: 10, // Add spacing between cards
+    width: 150,
+    marginRight: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.3,
@@ -349,9 +407,63 @@ const styles = StyleSheet.create({
     color: 'gray',
   },
   popularServicePrice1: {
-     fontSize: 12,
-     color: 'green',
-  }
+    fontSize: 12,
+    color: 'green',
+  },
+   // Top Service Providers Section
+  topServiceProviderSection: {
+    marginTop: 20,
+    paddingHorizontal: 20,
+  },
+  topServiceProviderHeaderText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  topServiceProviderContainer: {
+    paddingHorizontal: 5,
+  },
+  topServiceProviderCard: {
+    backgroundColor: '#f9f9f9',
+    borderRadius: 10,
+    padding: 10,
+    alignItems: 'center',
+    width: 150,
+    marginRight: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    elevation: 2,
+    paddingVertical: 15, // Optional adjustment
+  },
+  topServiceProviderImage: {
+    width: 60,  // Desired size for the circular image
+    height: 60, // Same value for perfect circle
+    borderRadius: 30, // Half of the width/height
+    marginBottom: 10,
+  },
+  topServiceProviderName: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  topServiceProviderProfession: {
+    fontSize: 12,
+    color: 'gray',
+  },
+  ratingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  starIcon: {
+    width: 20,
+    height: 20,
+    marginHorizontal: 2,
+  },
+  topServiceProviderReviews: {
+    fontSize: 12,
+    color: 'gray',
+  },
 });
 
 export default Home;
