@@ -1,10 +1,31 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Image, Alert } from 'react-native';
 
 const LoginScreen = ({ navigation }) => {
   const [mobileNumber, setMobileNumber] = useState('');
   const [password, setPassword] = useState('');
-  
+
+  const handleLogin = () => {
+    // Static account credentials
+    const validMobileNumber = '+639566776559';
+    const validPassword = 'koypogi01';
+
+    // Check if entered credentials match the static account
+    if (mobileNumber === validMobileNumber && password === validPassword) {
+      // Show success alert
+      Alert.alert(
+        'Login Successful',
+        'Welcome back!',
+        [
+          { text: 'OK', onPress: () => navigation.navigate('MainTab') },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      // Show an error alert if credentials do not match
+      Alert.alert('Login Failed', 'Invalid mobile number or password. Please try again.');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -13,15 +34,12 @@ const LoginScreen = ({ navigation }) => {
         style={styles.backgroundImage}
         blurRadius={5}
       >
-
         <View style={styles.overlay} />
         <View style={styles.logoContainer}>
-
           <Image
             source={require('../assets/logo.png')}
             style={{ opacity: 1 }}
           />
-
         </View>
 
         <View style={styles.loginContainer}>
@@ -45,7 +63,7 @@ const LoginScreen = ({ navigation }) => {
             onChangeText={setPassword}
           />
 
-          <TouchableOpacity style={styles.loginButton}>
+          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
             <Text style={styles.loginButtonText}>Log In</Text>
           </TouchableOpacity>
 
@@ -62,14 +80,14 @@ const LoginScreen = ({ navigation }) => {
           <View style={styles.socialContainer}>
             <TouchableOpacity style={styles.socialButton}>
               <Image
-                source={require('../assets/Facebook.png')} 
+                source={require('../assets/Facebook.png')}
                 style={styles.icon}
               />
               <Text style={styles.socialButtonText}>Facebook</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.socialButton}>
               <Image
-                source={require('../assets/Google.png')} 
+                source={require('../assets/Google.png')}
                 style={styles.icon}
               />
               <Text style={styles.socialButtonText}>Google</Text>
@@ -94,23 +112,14 @@ const styles = StyleSheet.create({
 
   overlay: {
     position: 'absolute',
-    backgroundColor: 'rgba(0, 0, 0, 0.6)', 
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     width: '100%',
     height: '100%',
-  },
-  appName: {
-    fontSize: 30, 
-    fontWeight: 'bold',
-    color: '#FFF',
-    textAlign: 'center',
-    padding: 10,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', 
-    borderRadius: 10, 
   },
   logoContainer: {
     alignItems: 'center',
     marginBottom: 10,
-    marginTop: 200, 
+    marginTop: 200,
   },
   loginContainer: {
     width: '100%',
@@ -119,7 +128,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     elevation: 3,
     height: '100%',
-    marginTop: 30, 
+    marginTop: 30,
   },
   loginTitle: {
     fontSize: 20,
@@ -173,28 +182,25 @@ const styles = StyleSheet.create({
   socialContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-
   },
   socialButton: {
     flex: 1,
-
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
     marginHorizontal: 5,
     flexDirection: 'row',
-    justifyContent: 'center', 
+    justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 0.3,          
-
+    borderWidth: 0.3,
   },
   socialButtonText: {
     color: '#333',
   },
   icon: {
-    width: 20, 
+    width: 20,
     height: 20,
-    marginRight: 8, 
+    marginRight: 8,
   },
   signUpText: {
     color: '#007bff',
