@@ -28,7 +28,8 @@
     "react-native-screens": "^3.31.1",
     "react-native-svg": "^15.7.1",
     "react-native-vector-icons": "^10.2.0",
-    "undefined": "@twotalltotems/react-native-otp-input: 1.3.5"
+    "undefined": "@twotalltotems/react-native-otp-input: 1.3.5",
+    "expo-location": "~17.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
