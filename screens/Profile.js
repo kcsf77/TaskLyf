@@ -1,7 +1,19 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Modal, Pressable } from 'react-native';
 
-const ProfileScreen = ({navigation}) => {
+const ProfileScreen = ({ navigation }) => {
+  const [logoutModalVisible, setLogoutModalVisible] = useState(false);
+
+  const handleLogout = () => {
+    setLogoutModalVisible(true);
+  };
+
+  const confirmLogout = () => {
+    setLogoutModalVisible(false);
+    console.log("Logged out successfully.");
+    navigation.navigate('Login');
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -20,7 +32,11 @@ const ProfileScreen = ({navigation}) => {
         <Text style={styles.menuTitle}>Profile</Text>
 
         {menuItems.map((item, index) => (
-          <TouchableOpacity key={index} style={styles.menuItem}>
+          <TouchableOpacity 
+            key={index} 
+            style={styles.menuItem}
+            onPress={() => item.title === 'Logout' && handleLogout()} // Trigger logout when clicked
+          >
             <Image 
               source={item.icon } 
               style={styles.menuIcon}
@@ -33,6 +49,33 @@ const ProfileScreen = ({navigation}) => {
           </TouchableOpacity>
         ))}
       </View>
+
+      {/* Logout Confirmation Bottom Sheet Modal */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={logoutModalVisible}
+        onRequestClose={() => setLogoutModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.bottomSheetContainer}>
+            {/* Handle on top */}
+            <View style={styles.handleBar} />
+
+            <Text style={styles.modalTitle}>Log out</Text>
+            <Text style={styles.modalMessage}>Are you sure you want to log out?</Text>
+
+            <View style={styles.modalButtons}>
+              <Pressable style={styles.modalButtonYes} onPress={confirmLogout}>
+                <Text style={styles.modalButtonTextYes}>Yes</Text>
+              </Pressable>  
+              <Pressable style={styles.modalButtonNo} onPress={() => setLogoutModalVisible(false)}>
+                <Text style={styles.modalButtonTextNo}>No</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };
@@ -48,11 +91,12 @@ const menuItems = [
   { title: 'Privacy Policy', icon: require('../assets/icons/insurance.png') },
   { title: 'Logout', icon: require('../assets/icons/logout.png') }
 ];
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding :20,
+    padding: 20,
   },
   header: {
     alignItems: 'center',
@@ -112,6 +156,65 @@ const styles = StyleSheet.create({
     width: 18, 
     height: 18, 
     marginLeft: 'auto', 
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  bottomSheetContainer: {
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 10,
+    alignItems: 'center',
+  },
+  handleBar: {
+    width: 40,
+    height: 4,
+    backgroundColor: '#ccc',
+    borderRadius: 2,
+    marginBottom: 20,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  modalMessage: {
+    fontSize: 14,
+    textAlign: 'center',
+    marginBottom: 35,
+    color: '#888',
+  },
+  modalButtons: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  modalButtonYes: {
+    backgroundColor: '#007AFF',
+    width: '100%',
+    paddingVertical: 15,
+    borderRadius: 15,
+    marginBottom: 10,
+  },
+  modalButtonNo: {
+    backgroundColor: '#D7D7D7',
+    width: '100%',
+    paddingVertical: 15,
+    borderRadius: 15,
+  },
+  modalButtonTextYes: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalButtonTextNo: {
+    color: '#888',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
