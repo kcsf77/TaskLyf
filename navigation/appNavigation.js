@@ -3,8 +3,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Entypo, MaterialIcons } from '@expo/vector-icons';
-import HomeScreen from '../screens/Home'; // Make sure the file name is correct
+import { Text, View, Image } from 'react-native'; // Import Image component
+import HomeScreen from '../screens/Home';
 import SearchScreen from '../screens/Search'; 
 import BookingScreen from '../screens/Booking'; 
 import ProfileScreen from '../screens/Profile'; 
@@ -18,7 +18,7 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const screenOptions = {
-  tabBarShowLabel: false,
+  tabBarShowLabel: false, // Show labels
   headerShown: false,
   tabBarStyle: {
     position: 'absolute',
@@ -29,6 +29,10 @@ const screenOptions = {
     height: 60,
     backgroundColor: '#fff',
   },
+  tabBarLabelStyle: {
+    fontSize: 12, // Adjust font size as needed
+    marginBottom: 5, // Space between label and icon
+  },
 };
 
 const MainTab = () => (
@@ -38,7 +42,13 @@ const MainTab = () => (
       component={HomeScreen}
       options={{
         tabBarIcon: ({ focused }) => (
-          <Entypo name="home" size={30} color={focused ? '#16247d' : '#111'} />
+          <View style={{ alignItems: 'center' }}>
+            <Image 
+              source={require('../assets/icons/Type=Home.png')} // Update with your image path
+              style={{ width: 25, height: 25, tintColor: focused ? '#007AFF' : '#A1A1A1' }} 
+            />
+            <Text style={{ color: focused ? '#007AFF' : '#A1A1A1' }}>Home</Text>
+          </View>
         ),
       }}
     />
@@ -47,7 +57,13 @@ const MainTab = () => (
       component={SearchScreen}
       options={{
         tabBarIcon: ({ focused }) => (
-          <Entypo name="magnifying-glass" size={30} color={focused ? '#16247d' : '#111'} /> // Use "magnifying-glass" instead of "search"
+          <View style={{ alignItems: 'center' }}>
+            <Image 
+              source={require('../assets/icons/Type=Search.png')} // Update with your image path
+              style={{ width: 25, height: 25, tintColor: focused ? '#007AFF' : '#A1A1A1' }} 
+            />
+            <Text style={{ color: focused ? '#007AFF' : '#A1A1A1' }}>Search</Text>
+          </View>
         ),
       }}
     />
@@ -56,7 +72,13 @@ const MainTab = () => (
       component={BookingScreen}
       options={{
         tabBarIcon: ({ focused }) => (
-          <MaterialIcons name="book" size={30} color={focused ? '#16247d' : '#111'} />
+          <View style={{ alignItems: 'center' }}>
+            <Image 
+              source={require('../assets/icons/Type=Calendar.png')} // Update with your image path
+              style={{ width: 25, height: 25, tintColor: focused ? '#007AFF' : '#A1A1A1' }} 
+            />
+            <Text style={{ color: focused ? '#007AFF' : '#A1A1A1' }}>Booking</Text>
+          </View>
         ),
       }}
     />
@@ -65,7 +87,13 @@ const MainTab = () => (
       component={ProfileScreen}
       options={{
         tabBarIcon: ({ focused }) => (
-          <MaterialIcons name="face" size={30} color={focused ? '#16247d' : '#111'} />
+          <View style={{ alignItems: 'center' }}>
+            <Image 
+              source={require('../assets/icons/Type=Profile.png')} // Update with your image path
+              style={{ width: 25, height: 25, tintColor: focused ? '#007AFF' : '#A1A1A1' }} 
+            />
+            <Text style={{ color: focused ? '#007AFF' : '#A1A1A1' }}>Profile</Text>
+          </View>
         ),
       }}
     />
@@ -81,10 +109,7 @@ export default function AppNavigation() {
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Verify" component={VerificationScreen} />
         <Stack.Screen name="InfoPage" component={InfoScreen} />
-        <Stack.Screen
-          name="MainTab"
-          component={MainTab} // This should lead to the tab navigator
-        />
+        <Stack.Screen name="MainTab" component={MainTab} />
       </Stack.Navigator>
     </NavigationContainer>
   );
