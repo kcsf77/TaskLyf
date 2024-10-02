@@ -1,10 +1,35 @@
-import React, { useState, version } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Image, Alert } from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 
-const VerificationScreen = ({ navigation }) => {
+const VerificationScreen = ({ navigation, route }) => {
+    const [otp, setOtp] = useState('');
+    const [generatedOtp, setGeneratedOtp] = useState('123456'); // Static OTP for demo
     const [mobileNumber, setMobileNumber] = useState('');
 
+    // Assuming you get the mobile number from route params passed from the SignUpScreen
+    useEffect(() => {
+        if (route.params && route.params.mobileNumber) {
+            setMobileNumber(route.params.mobileNumber);
+            sendOtp(route.params.mobileNumber); // Simulating OTP sending
+        }
+    }, [route.params]);
+
+    // Simulate OTP sending
+    const sendOtp = (number) => {
+        // Simulate an OTP sent alert (static OTP for demo purposes)
+        Alert.alert("OTP Sent", `OTP has been sent to ${number}. Static OTP is 123456`);
+        console.log(`Simulated OTP sent to ${number}: 123456`);
+    };
+
+    const verifyOtp = () => {
+        if (otp === generatedOtp) {
+            Alert.alert('Success', 'OTP verified successfully!');
+            navigation.navigate('InfoPage'); // Navigate to next page after verification
+        } else {
+            Alert.alert('Error', 'Invalid OTP. Please try again.');
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -16,10 +41,9 @@ const VerificationScreen = ({ navigation }) => {
 
                 <View style={styles.overlay} />
                 <View style={styles.BackContainer}>
-                    <TouchableOpacity onPress={() => navigation.goBack()}> 
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
                         <Image
                             source={require('../assets/Back.png')}
-                            
                         />
                     </TouchableOpacity>
                     <Text style={styles.verifyText}>Verify</Text>
@@ -33,16 +57,18 @@ const VerificationScreen = ({ navigation }) => {
                     <OTPInputView
                         style={styles.otpContainer}
                         pinCount={6}
+                        code={otp}
+                        onCodeChanged={setOtp}
+                        autoFocusOnLoad
                         codeInputFieldStyle={styles.otpInput}
                         codeInputHighlightStyle={styles.otpInputHighlight}
                     />
 
                     {/* Confirm Button */}
-                    <TouchableOpacity style={styles.confirmButton} onPress={() => navigation.navigate('InfoPage')}>
+                    <TouchableOpacity style={styles.confirmButton} onPress={verifyOtp}>
                         <Text style={styles.confirmText}>Confirm</Text>
                     </TouchableOpacity>
                 </View>
-
 
             </ImageBackground>
         </View>
@@ -54,9 +80,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-
     },
-
     overlay: {
         position: 'absolute',
         backgroundColor: 'rgba(0, 0, 0, 0.6)',
@@ -70,9 +94,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '900'
     },
-
     BackContainer: {
-        alignItems: 'center', // Align children center vertically
+        alignItems: 'center',
         marginBottom: 10,
         marginTop: 200,
         marginLeft: 50,
@@ -80,7 +103,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         width: '100%',
     },
-
     confirmButton: {
         backgroundColor: '#3399FF',
         padding: 15,
@@ -93,7 +115,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
-
     content: {
         backgroundColor: '#fff',
         padding: 20,
@@ -129,10 +150,9 @@ const styles = StyleSheet.create({
         color: '#000',
         fontSize: 20,
         textAlign: 'center',
-
     },
     otpInputHighlight: {
-        borderBottomColor: '#007AFF', // Change the underline color when highlighted
+        borderBottomColor: '#007AFF',
     },
     confirmButton: {
         backgroundColor: '#007AFF',
@@ -146,8 +166,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '600',
     },
-
-
     backgroundImage: {
         flex: 1,
         width: '100%',

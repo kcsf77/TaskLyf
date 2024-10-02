@@ -2,8 +2,17 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Image } from 'react-native';
 
 const SignUpScreen = ({ navigation }) => {
-  const [mobileNumber, setMobileNumber] = useState('');
+  // Initialize the mobileNumber with +63
+  const [mobileNumber, setMobileNumber] = useState('+63');
 
+  const handleMobileNumberChange = (text) => {
+    // Ensure that +63 stays at the start of the input
+    if (!text.startsWith('+63')) {
+      setMobileNumber('+63');
+    } else {
+      setMobileNumber(text);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -12,10 +21,8 @@ const SignUpScreen = ({ navigation }) => {
         style={styles.backgroundImage}
         blurRadius={5}
       >
-
         <View style={styles.overlay} />
         <View style={styles.logoContainer}>
-
           <Image
             source={require('../assets/logo.png')}
             style={{ opacity: 1 }}
@@ -31,16 +38,15 @@ const SignUpScreen = ({ navigation }) => {
             placeholder="+639XXXXXXXXX"
             keyboardType="phone-pad"
             value={mobileNumber}
-            onChangeText={setMobileNumber}
+            onChangeText={handleMobileNumberChange} // Handle the text change
           />
 
-
-
-          <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('Verify')}>
+          <TouchableOpacity 
+            style={styles.nextButton} 
+            onPress={() => navigation.navigate('Verify', { mobileNumber })} // Pass mobile number
+          >
             <Text style={styles.nextButtonText}>Next</Text>
           </TouchableOpacity>
-
-
 
           <View style={styles.separatorContainer}>
             <View style={styles.separatorLine} />
@@ -79,16 +85,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-
   },
-
   overlay: {
     position: 'absolute',
     backgroundColor: 'rgba(0, 0, 0, 0.6)', 
     width: '100%',
     height: '100%',
   },
- 
   logoContainer: {
     alignItems: 'center',
     marginBottom: 10,
@@ -133,7 +136,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-
   separatorContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -152,11 +154,9 @@ const styles = StyleSheet.create({
   socialContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-
   },
   socialButton: {
     flex: 1,
-
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
@@ -165,7 +165,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center',
     borderWidth: 0.3,           
-
   },
   socialButtonText: {
     color: '#333',
