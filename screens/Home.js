@@ -6,8 +6,32 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  SafeAreaView,
+  ScrollView,
+  FlatList, // Import FlatList
 } from 'react-native';
 import * as Location from 'expo-location';
+
+const popularServicesData = [
+  {
+    id: '1',
+    image: require('../assets/Popular Services/Rectangle 103.png'),
+    title: 'Hairdresser',
+    price: '₱200',
+  },
+  {
+    id: '2',
+    image: require('../assets/Popular Services/Rectangle 103 (1).png'),
+    title: 'Photographer',
+    price: '₱250',
+  },
+  {
+    id: '3',
+    image: require('../assets/Popular Services/Rectangle 103 2.png'),
+    title: 'Event Makeup Artist',
+    price: '₱399',
+  },
+];
 
 const Home = () => {
   const [currentLocation, setCurrentLocation] = useState('Getting location...');
@@ -51,46 +75,118 @@ const Home = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={handleLocationPress} style={styles.locationContainer}>
-          <Image source={require('../assets/icons/Type=Marker.png')} style={styles.locationIcon} />
-          <View>
-            <Text style={styles.locationText}>Current Location</Text>
-            <Text style={styles.locationName}>{currentLocation}</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView 
+        contentContainerStyle={styles.container}
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Header */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={handleLocationPress} style={styles.locationContainer}>
+            <Image source={require('../assets/icons/Type=Marker.png')} style={styles.locationIcon} />
+            <View>
+              <Text style={styles.locationText}>Current Location</Text>
+              <Text style={styles.locationName}>{currentLocation}</Text>
+            </View>
+            <Image source={require('../assets/icons/Type=Caret Bottom.png')} style={styles.dropdownIcon} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleNotificationPress}>
+            <Image source={require('../assets/icons/Type=Bell.png')} style={styles.notificationIcon} />
+          </TouchableOpacity>
+        </View>
+
+        {/* Search Bar */}
+        <View style={styles.searchBarContainer}>
+          <Image
+            source={require('../assets/icons/Type=Search.png')}
+            style={styles.searchIcon}
+          />
+          <TextInput
+            style={styles.searchBar}
+            placeholder="Search"
+            value={searchQuery}
+            onChangeText={handleSearchChange}
+          />
+        </View>
+
+        {/* Promo Section */}
+        <View style={styles.promoContainer}>
+          <Image
+            source={require('../assets/image 2.png')} 
+            style={styles.promoImage}  
+          />
+          <View style={styles.promoOverlay}>
+            {/* Promo Text */}
+            <Text style={styles.promoHeaderText}>Book Services</Text>
+            <Text style={styles.promoSubText}>in your area with ease</Text>
+            
+            {/* Book Button */}
+            <TouchableOpacity style={styles.bookButton}>
+              <Text style={styles.bookButtonText}>Book Now</Text>
+            </TouchableOpacity>
           </View>
-          <Image source={require('../assets/icons/Type=Caret Bottom.png')} style={styles.dropdownIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleNotificationPress}>
-          <Image source={require('../assets/icons/Type=Bell.png')} style={styles.notificationIcon} />
-        </TouchableOpacity>
-      </View>
+        </View>
 
-      <View style={styles.searchBarContainer}>
-        <Image
-          source={require('../assets/icons/Type=Search.png')}
-          style={styles.searchIcon}
-        />
-        <TextInput
-          style={styles.searchBar}
-          placeholder="Search"
-          value={searchQuery}
-          onChangeText={handleSearchChange}
-        />
-      </View>
+        {/* Services Section */}
+        <View style={styles.servicesSection}>
+          <Text style={styles.servicesHeaderText}>Services</Text>
+          <View style={styles.servicesIconsContainer}>
+            <TouchableOpacity style={styles.serviceButton}>
+              <Image source={require('../assets/icons/Type=AC Solid.png')} style={styles.serviceIcon} />
+              <Text style={styles.serviceText}>AC Services</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.serviceButton}>
+              <Image source={require('../assets/icons/Type=Capa_1.png')} style={styles.serviceIcon} />
+              <Text style={styles.serviceText}>Cleaning</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.serviceButton}>
+              <Image source={require('../assets/icons/SVGRepo_iconCarrier.png')} style={styles.serviceIcon} />
+              <Text style={styles.serviceText}>Painting</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.serviceButton}>
+              <Image source={require('../assets/icons/Type=Plug.png')} style={styles.serviceIcon} />
+              <Text style={styles.serviceText}>Electrician</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
 
-      <Image
-        source={require('../assets/image 2.png')} 
-        style={styles.promoImage}  
-      />
-    </View>
+        {/* Popular Services Section */}
+        <View style={styles.popularServicesSection}>
+          <Text style={styles.popularServicesHeaderText}>Popular Services</Text>
+          <FlatList
+            data={popularServicesData}
+            renderItem={({ item }) => (
+              <TouchableOpacity style={styles.popularServiceCard}>
+                <Image source={item.image} style={styles.popularServiceImage} />
+                <Text style={styles.popularServiceText}>{item.title}</Text>
+                <Text style={styles.popularServicePrice}>Starts at</Text>
+                <Text style={styles.popularServicePrice1}>{item.price}</Text>
+              </TouchableOpacity>
+            )}
+            keyExtractor={item => item.id}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.popularServicesContainer}
+          />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
     backgroundColor: 'white',
+  },
+  container: {
+    flexGrow: 1,
+    paddingBottom: 70, // Add padding to bottom for bottom navigation
+  },
+  scrollView: {
+    // Optional: Add background color if needed
+    // backgroundColor: 'lightgray',
   },
   header: {
     flexDirection: 'row',
@@ -142,14 +238,120 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 40,
   },
-  // Add styles for promo image
+  promoContainer: {
+    position: 'relative',
+    alignItems: 'center',
+    marginTop: 35,
+  },
   promoImage: {
     width: '90%',
     height: 200,
-    alignSelf: 'center',
-    marginTop: 35,
     borderRadius: 10,
   },
+  promoOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    paddingHorizontal: 40,
+  },
+  promoHeaderText: {
+    color: 'white',
+    fontSize: 27,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    marginTop: 10,
+  },
+  promoSubText: {
+    color: 'white',
+    fontSize: 16,
+    marginBottom: 20,
+  },
+  bookButton: {
+    backgroundColor: '#007bff',
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+  },
+  bookButtonText: {
+    color: 'white',
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  // Services Section
+  servicesSection: {
+    marginTop: 25,
+    paddingHorizontal: 20,
+  },
+  servicesHeaderText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  servicesIconsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  serviceButton: {
+    alignItems: 'center',
+    width: 70,
+  },
+  serviceIcon: {
+    width: 50,
+    height: 50,
+    marginBottom: 5,
+  },
+  serviceText: {
+    fontSize: 12,
+    textAlign: 'center',
+  },
+  // Popular Services Section
+  popularServicesSection: {
+    marginTop: 20,
+    paddingHorizontal: 20,
+  },
+  popularServicesHeaderText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  popularServicesContainer: {
+    paddingHorizontal: 5, // Add horizontal padding to center the FlatList
+  },
+  popularServiceCard: {
+    backgroundColor: '#f9f9f9',
+    borderRadius: 10,
+    padding: 10,
+    alignItems: 'center',
+    width: 150, // Set width to give each card a consistent size
+    marginRight: 10, // Add spacing between cards
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    elevation: 2,
+  },
+  popularServiceImage: {
+    width: '100%',
+    height: 60,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  popularServiceText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  popularServicePrice: {
+    fontSize: 12,
+    color: 'gray',
+  },
+  popularServicePrice1: {
+     fontSize: 12,
+     color: 'green',
+  }
 });
 
 export default Home;
