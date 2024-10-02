@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Image, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'; // Import the icon library
 
 const InfoScreen = ({ navigation }) => {
@@ -9,6 +9,29 @@ const InfoScreen = ({ navigation }) => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(true); // For Password visibility
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(true); // For Confirm Password visibility
+
+    // Function to handle sign-up
+    const handleSignUp = () => {
+        // Check if all fields are filled
+        if (!firstName || !lastName || !password || !confirmPassword) {
+            Alert.alert('Error', 'Please fill in all fields.');
+            return;
+        }
+
+        // Check if passwords match
+        if (password !== confirmPassword) {
+            Alert.alert('Error', 'Passwords do not match.');
+            return;
+        }
+
+        // Here you can add your sign-up logic (e.g., API call to register the user)
+        
+        // Show success message
+        Alert.alert('Success', 'Your account has been successfully created!');
+
+        // Navigate to Login screen upon successful sign-up
+        navigation.navigate('Login');
+    };
 
     return (
         <View style={styles.container}>
@@ -66,7 +89,7 @@ const InfoScreen = ({ navigation }) => {
                             <Icon
                                 name={passwordVisible ? 'eye-off-outline' : 'eye-outline'}
                                 size={24}
-                                color="#D3D3D3"
+                                color="#BFBFBF"
                             />
                         </TouchableOpacity>
                     </View>
@@ -88,12 +111,12 @@ const InfoScreen = ({ navigation }) => {
                             <Icon
                                 name={confirmPasswordVisible ? 'eye-off-outline' : 'eye-outline'}
                                 size={24}
-                                color="#D3D3D3"
+                                color="#BFBFBF"
                             />
                         </TouchableOpacity>
                     </View>
 
-                    <TouchableOpacity style={styles.loginButton}>
+                    <TouchableOpacity style={styles.loginButton} onPress={handleSignUp}>
                         <Text style={styles.loginButtonText}>Sign up</Text>
                     </TouchableOpacity>
                 </View>
