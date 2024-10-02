@@ -13,6 +13,7 @@ import LoginScreen from '../screens/Login';
 import SignUpScreen from '../screens/Signup'; 
 import VerificationScreen from '../screens/Verification'; 
 import InfoScreen from '../screens/InfoPage'; 
+import EditProfileScreen from '../screens/EditProfile';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -110,6 +111,7 @@ export default function AppNavigation() {
         <Stack.Screen name="Verify" component={VerificationScreen} />
         <Stack.Screen name="InfoPage" component={InfoScreen} />
         <Stack.Screen name="MainTab" component={MainTab} />
+        <Stack.Screen name="EditProfile" component={EditProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
