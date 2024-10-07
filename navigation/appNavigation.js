@@ -14,6 +14,10 @@ import SignUpScreen from '../screens/Signup';
 import VerificationScreen from '../screens/Verification'; 
 import InfoScreen from '../screens/InfoPage'; 
 import EditProfileScreen from '../screens/EditProfile';
+import ACservices from '../screens/ServicesSection/ACservices'; // Add this import
+import Cleaning from '../screens/ServicesSection/Cleaning'; // Add this import
+import Electrician from '../screens/ServicesSection/Electrician'; // Add this import
+import Painting from '../screens/ServicesSection/Painting';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -112,6 +116,10 @@ export default function AppNavigation() {
         <Stack.Screen name="InfoPage" component={InfoScreen} />
         <Stack.Screen name="MainTab" component={MainTab} />
         <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+        <Stack.Screen name="ACservices" component={ACservices} />
+        <Stack.Screen name="Cleaning" component={Cleaning} />
+        <Stack.Screen name="Electrician" component={Electrician} />
+        <Stack.Screen name="Painting" component={Painting} />
       </Stack.Navigator>
     </NavigationContainer>
   );

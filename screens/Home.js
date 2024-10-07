@@ -11,6 +11,7 @@ import {
   FlatList,
 } from 'react-native';
 import * as Location from 'expo-location';
+import { useNavigation } from '@react-navigation/native';
 
 const popularServicesData = [
   {
@@ -116,6 +117,11 @@ const Home = () => {
     getLocation();
   }, []);
 
+  const handleServicePress = (service) => {
+  navigation.navigate(service);
+};
+const navigation = useNavigation();
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView 
@@ -171,22 +177,22 @@ const Home = () => {
         <View style={styles.servicesSection}>
           <Text style={styles.servicesHeaderText}>Services</Text>
           <View style={styles.servicesIconsContainer}>
-            <TouchableOpacity style={styles.serviceButton}>
-              <Image source={require('../assets/icons/Type=AC Solid.png')} style={styles.serviceIcon} />
-              <Text style={styles.serviceText}>AC Services</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.serviceButton}>
-              <Image source={require('../assets/icons/Type=Capa_1.png')} style={styles.serviceIcon} />
-              <Text style={styles.serviceText}>Cleaning</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.serviceButton}>
-              <Image source={require('../assets/icons/SVGRepo_iconCarrier.png')} style={styles.serviceIcon} />
-              <Text style={styles.serviceText}>Painting</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.serviceButton}>
-              <Image source={require('../assets/icons/Type=Plug.png')} style={styles.serviceIcon} />
-              <Text style={styles.serviceText}>Electrician</Text>
-            </TouchableOpacity>
+            <TouchableOpacity style={styles.serviceButton} onPress={() => handleServicePress('ACservices')}>
+  <Image source={require('../assets/icons/Type=AC Solid.png')} style={styles.serviceIcon} />
+  <Text style={styles.serviceText}>AC Services</Text>
+</TouchableOpacity>
+<TouchableOpacity style={styles.serviceButton} onPress={() => handleServicePress('Cleaning')}>
+  <Image source={require('../assets/icons/Type=Capa_1.png')} style={styles.serviceIcon} />
+  <Text style={styles.serviceText}>Cleaning</Text>
+</TouchableOpacity>
+<TouchableOpacity style={styles.serviceButton} onPress={() => handleServicePress('Painting')}>
+  <Image source={require('../assets/icons/SVGRepo_iconCarrier.png')} style={styles.serviceIcon} />
+  <Text style={styles.serviceText}>Painting</Text>
+</TouchableOpacity>
+<TouchableOpacity style={styles.serviceButton} onPress={() => handleServicePress('Electrician')}>
+  <Image source={require('../assets/icons/Type=Plug.png')} style={styles.serviceIcon} />
+  <Text style={styles.serviceText}>Electrician</Text>
+</TouchableOpacity>
           </View>
         </View>
 
