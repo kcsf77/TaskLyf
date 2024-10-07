@@ -36,24 +36,24 @@ const popularServicesData = [
 const topServiceProvidersData = [
   {
     id: '1',
-    image: require('../assets/TopServiceProvider/Profil Pic (1).png'),
-    name: 'John Doe',
+    image: require('../assets/TopServiceProvider/brien.jpg'),
+    name: 'Brien Leem',
     profession: 'Computer Technician',
     rating: 5.0,
     reviews: '(50)',
   },
   {
     id: '2',
-    image: require('../assets/TopServiceProvider/Profil Pic (2).png'),
-    name: 'Will Smith',
+    image: require('../assets/TopServiceProvider/brian.jpg'),
+    name: 'Mrian Martinez',
     profession: 'Electrician',
     rating: 3.0,
     reviews: '(30)',
   },
   {
     id: '3',
-    image: require('../assets/TopServiceProvider/Profil Pic.png'),
-    name: 'Brien Ong',
+    image: require('../assets/TopServiceProvider/gab.jpg'),
+    name: 'Gabo Mipal',
     profession: 'Aircon Cleaner',
     rating: 2.0,
     reviews: '(25)',
@@ -456,8 +456,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   starIcon: {
-    width: 20,
-    height: 20,
+    width: 10,
+    height: 10,
     marginHorizontal: 2,
   },
   topServiceProviderReviews: {
