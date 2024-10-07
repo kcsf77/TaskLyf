@@ -8,22 +8,29 @@ const LoginScreen = ({ navigation }) => {
   const [passwordVisible, setPasswordVisible] = useState(true); // For Password visibility
 
   const handleLogin = () => {
-    const validMobileNumber = '+639566776559';
-    const validPassword = 'koypogi01';
+  const validMobileNumber = '+639566776559';
+  const validPassword = 'koypogi01';
 
-    if (mobileNumber === validMobileNumber && password === validPassword) {
-      Alert.alert(
-        'Login Successful',
-        'Welcome back!',
-        [
-          { text: 'OK', onPress: () => navigation.navigate('MainTab') },
-        ],
-        { cancelable: false }
-      );
-    } else {
-      Alert.alert('Login Failed', 'Invalid mobile number or password. Please try again.');
-    }
-  };
+  if (mobileNumber === validMobileNumber && password === validPassword) {
+    Alert.alert(
+      'Login Successful',
+      'Welcome back!',
+      [
+        {
+          text: 'OK',
+          onPress: () =>
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'MainTab' }],
+            }),
+        },
+      ],
+      { cancelable: false }
+    );
+  } else {
+    Alert.alert('Login Failed', 'Invalid mobile number or password. Please try again.');
+  }
+};
 
   const handleMobileNumberChange = (text) => {
     // If the user inputs a string, keep the +63 prefix and concatenate the rest
