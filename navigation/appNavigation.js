@@ -57,6 +57,9 @@ import Safety from '../screens/ElectricianselectService/Safety';
 import Smoke from '../screens/ElectricianselectService/Smoke';
 import Surge from '../screens/ElectricianselectService/Surge';
 import Wiring from '../screens/ElectricianselectService/Wiring';
+import Refer from '../screens/Refer';
+import FAQs from '../screens/FAQs';
+import PrivacyPolicy from '../screens/PrivacyPolicy';
 
 
 const Stack = createNativeStackNavigator();
@@ -199,6 +202,9 @@ export default function AppNavigation() {
         <Stack.Screen name="Smoke" component={Smoke} />
         <Stack.Screen name="Surge" component={Surge} />
         <Stack.Screen name="Wiring" component={Wiring} />
+        <Stack.Screen name="Refer" component={Refer} />
+        <Stack.Screen name="FAQs" component={FAQs} />
+        <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
       </Stack.Navigator>
     </NavigationContainer>
   );

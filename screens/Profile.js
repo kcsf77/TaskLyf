@@ -35,7 +35,17 @@ const ProfileScreen = ({ navigation }) => {
           <TouchableOpacity 
             key={index} 
             style={styles.menuItem}
-            onPress={() => item.title === 'Logout' && handleLogout()} // Trigger logout when clicked
+            onPress={() => {
+              if (item.title === 'Share & Earn') {
+                navigation.navigate('Refer'); // Navigate to Refer.js
+              } else if (item.title === 'FAQ’s') {
+                navigation.navigate('FAQs'); // Navigate to FAQs.js
+              } else if (item.title === 'Privacy Policy') {
+                navigation.navigate('PrivacyPolicy'); // Navigate to PrivacyPolicy.js
+              } else if (item.title === 'Logout') {
+                handleLogout(); // Trigger logout when clicked
+              }
+            }}
           >
             <Image 
               source={item.icon } 
