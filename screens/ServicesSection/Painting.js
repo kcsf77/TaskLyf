@@ -2,25 +2,29 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, StatusBar, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; // Import the hook
 
-// Sample data for Painting
+// Sample data for Painting services with navigation routes
 const services = [
-    { id: '1', name: 'Interior Painting', subtitle: 'include visiting charge', image: require('../../assets/Painting/InteriorPainting.jpg') },
-    { id: '2', name: 'Exterior Painting', subtitle: 'include visiting charge', image: require('../../assets/Painting/ExteriorPainting.jpg') },
-    { id: '3', name: 'Wall Preparation', subtitle: 'include visiting charge', image: require('../../assets/Painting/wallpreparationPainting.jpg') },
-    { id: '4', name: 'Accent Wall Painting', subtitle: 'include visiting charge', image: require('../../assets/Painting/accentwallPainting.jpg') },
-    { id: '5', name: 'Staining and Varnishing', subtitle: 'include visiting charge', image: require('../../assets/Painting/StainingandVarnishingPainting.jpg') },
-    { id: '6', name: 'Wallpaper Removal and Wall Painting', subtitle: 'include visiting charge', image: require('../../assets/Painting/wallpaperRemovalandWallPainting.jpg') },
-    { id: '7', name: 'Texture Painting', subtitle: 'include visiting charge', image: require('../../assets/Painting/texturePainting.jpg') },
-    { id: '8', name: 'Cabinet Painting and Refinishing', subtitle: 'include visiting charge', image: require('../../assets/Painting/cabinetPaintingandRefinishing.jpg') },
-    { id: '9', name: 'Deck and Fence Painting or Staining', subtitle: 'include visiting charge', image: require('../../assets/Painting/deckAndFencePainting.jpg') },
-    { id: '10', name: 'Touch-Up and Repair', subtitle: 'include visiting charge', image: require('../../assets/Painting/TouchUpandRepair.jpg') },
+    { id: '1', name: 'Interior Painting', subtitle: 'include visiting charge', image: require('../../assets/Painting/InteriorPainting.jpg'), route: 'Interior' },
+    { id: '2', name: 'Exterior Painting', subtitle: 'include visiting charge', image: require('../../assets/Painting/ExteriorPainting.jpg'), route: 'Exterior' },
+    { id: '3', name: 'Wall Preparation', subtitle: 'include visiting charge', image: require('../../assets/Painting/wallpreparationPainting.jpg'), route: 'Wallpreparation' },
+    { id: '4', name: 'Accent Wall Painting', subtitle: 'include visiting charge', image: require('../../assets/Painting/accentwallPainting.jpg'), route: 'Accent' },
+    { id: '5', name: 'Staining and Varnishing', subtitle: 'include visiting charge', image: require('../../assets/Painting/StainingandVarnishingPainting.jpg'), route: 'Staining' },
+    { id: '6', name: 'Wallpaper Removal and Wall Painting', subtitle: 'include visiting charge', image: require('../../assets/Painting/wallpaperRemovalandWallPainting.jpg'), route: 'Wallpaper' },
+    { id: '7', name: 'Texture Painting', subtitle: 'include visiting charge', image: require('../../assets/Painting/texturePainting.jpg'), route: 'Texture' },
+    { id: '8', name: 'Cabinet Painting and Refinishing', subtitle: 'include visiting charge', image: require('../../assets/Painting/cabinetPaintingandRefinishing.jpg'), route: 'Cabinet' },
+    { id: '9', name: 'Deck and Fence Painting or Staining', subtitle: 'include visiting charge', image: require('../../assets/Painting/deckAndFencePainting.jpg'), route: 'Deck' },
+    { id: '10', name: 'Touch-Up and Repair', subtitle: 'include visiting charge', image: require('../../assets/Painting/TouchUpandRepair.jpg'), route: 'TouchUp' },
 ];
 
 const Painting = () => {
     const navigation = useNavigation(); // Get the navigation object
 
+    const handleServicePress = (route) => {
+        navigation.navigate(route); // Navigate to the specific screen for the service
+    };
+
     const renderService = ({ item }) => (
-        <TouchableOpacity style={styles.serviceItem}>
+        <TouchableOpacity style={styles.serviceItem} onPress={() => handleServicePress(item.route)}>
             <Image source={item.image} style={styles.serviceImage} />
             <View style={styles.serviceTextContainer}>
                 <Text style={styles.serviceName}>{item.name}</Text>

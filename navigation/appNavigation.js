@@ -18,6 +18,46 @@ import ACservices from '../screens/ServicesSection/ACservices'; // Add this impo
 import Cleaning from '../screens/ServicesSection/Cleaning'; // Add this import
 import Electrician from '../screens/ServicesSection/Electrician'; // Add this import
 import Painting from '../screens/ServicesSection/Painting';
+import ACcleaning from '../screens/ACselectService/ACcleaning';
+import ACgastopup from '../screens/ACselectService/ACgastopup';
+import ACInstallation from '../screens/ACselectService/ACinstallation';
+import ACmaintenance from '../screens/ACselectService/ACmaintenance';
+import ACrepair from '../screens/ACselectService/ACrepair';
+import ACthermostat from '../screens/ACselectService/ACthermostat';
+import ACtroubleshooting from '../screens/ACselectService/ACtroubleshooting';
+import Carpet from '../screens/CleaningselectService/Carpet';
+import DeepCleaning from '../screens/CleaningselectService/DeepCleaning';
+import Disinfection from '../screens/CleaningselectService/Disinfection';
+import GreenCleaning from '../screens/CleaningselectService/GreenCleaning';
+import Laundry from '../screens/CleaningselectService/Laundry';
+import MoveinCleaning from '../screens/CleaningselectService/MoveinCleaning';
+import Post from '../screens/CleaningselectService/Post';
+import StandardCleaning from '../screens/CleaningselectService/StandardCleaning';
+import Upholstery from '../screens/CleaningselectService/Upholstery';
+import Window from '../screens/CleaningselectService/Window';
+import Accent from '../screens/PaintingselectService/Accent';
+import Cabinet from '../screens/PaintingselectService/Cabinet';
+import Deck from '../screens/PaintingselectService/Deck';
+import Exterior from '../screens/PaintingselectService/Exterior';
+import Interior from '../screens/PaintingselectService/Interior';
+import Staining from '../screens/PaintingselectService/Staining';
+import Texture from '../screens/PaintingselectService/Texture';
+import TouchUp from '../screens/PaintingselectService/TouchUp';
+import Wallpaper from '../screens/PaintingselectService/Wallpaper';
+import Wallpreparation from '../screens/PaintingselectService/Wallpreparation';
+import Circuit from '../screens/ElectricianselectService/Circuit';
+import Electricalinstallation from '../screens/ElectricianselectService/Electricalinstallation';
+import ElectricalRepairs from '../screens/ElectricianselectService/ElectricalRepairs';
+import Generator from '../screens/ElectricianselectService/Generator';
+import HomeAutomation from '../screens/ElectricianselectService/HomeAutomation';
+import Lighting from '../screens/ElectricianselectService/Lighting';
+import Outlet from '../screens/ElectricianselectService/Outlet';
+import Panel from '../screens/ElectricianselectService/Panel';
+import Safety from '../screens/ElectricianselectService/Safety';
+import Smoke from '../screens/ElectricianselectService/Smoke';
+import Surge from '../screens/ElectricianselectService/Surge';
+import Wiring from '../screens/ElectricianselectService/Wiring';
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -120,6 +160,45 @@ export default function AppNavigation() {
         <Stack.Screen name="Cleaning" component={Cleaning} />
         <Stack.Screen name="Electrician" component={Electrician} />
         <Stack.Screen name="Painting" component={Painting} />
+        <Stack.Screen name="ACcleaning" component={ACcleaning} />
+        <Stack.Screen name="ACgastopup" component={ACgastopup} />
+        <Stack.Screen name="ACinstallation" component={ACInstallation} />
+        <Stack.Screen name="ACmaintenance" component={ACmaintenance} />
+        <Stack.Screen name="ACrepair" component={ACrepair} />
+        <Stack.Screen name="ACthermostat" component={ACthermostat} />
+        <Stack.Screen name="ACtroubleshooting" component={ACtroubleshooting} />
+        <Stack.Screen name="Carpet" component={Carpet} />
+        <Stack.Screen name="DeepCleaning" component={DeepCleaning} />
+        <Stack.Screen name="Disinfection" component={Disinfection} />
+        <Stack.Screen name="GreenCleaning" component={GreenCleaning} />
+        <Stack.Screen name="Laundry" component={Laundry} />
+        <Stack.Screen name="MoveinCleaning" component={MoveinCleaning} />
+        <Stack.Screen name="Post" component={Post} />
+        <Stack.Screen name="StandardCleaning" component={StandardCleaning} />
+        <Stack.Screen name="Upholstery" component={Upholstery} />
+        <Stack.Screen name="Window" component={Window} />
+        <Stack.Screen name="Accent" component={Accent} />
+        <Stack.Screen name="Cabinet" component={Cabinet} />
+        <Stack.Screen name="Deck" component={Deck} />
+        <Stack.Screen name="Exterior" component={Exterior} />
+        <Stack.Screen name="Interior" component={Interior} />
+        <Stack.Screen name="Staining" component={Staining} />
+        <Stack.Screen name="Texture" component={Texture} />
+        <Stack.Screen name="TouchUp" component={TouchUp} />
+        <Stack.Screen name="Wallpaper" component={Wallpaper} />
+        <Stack.Screen name="Wallpreparation" component={Wallpreparation} />
+        <Stack.Screen name="Circuit" component={Circuit} />
+        <Stack.Screen name="Electricalinstallation" component={Electricalinstallation} />
+        <Stack.Screen name="ElectricalRepairs" component={ElectricalRepairs} />
+        <Stack.Screen name="Generator" component={Generator} />
+        <Stack.Screen name="HomeAutomation" component={HomeAutomation} />
+        <Stack.Screen name="Lighting" component={Lighting} />
+        <Stack.Screen name="Outlet" component={Outlet} />
+        <Stack.Screen name="Panel" component={Panel} />
+        <Stack.Screen name="Safety" component={Safety} />
+        <Stack.Screen name="Smoke" component={Smoke} />
+        <Stack.Screen name="Surge" component={Surge} />
+        <Stack.Screen name="Wiring" component={Wiring} />
       </Stack.Navigator>
     </NavigationContainer>
   );

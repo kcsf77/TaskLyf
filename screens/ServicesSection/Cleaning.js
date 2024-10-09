@@ -2,25 +2,29 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, StatusBar, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; // Import the hook
 
-// Sample data for Cleaning
+// Sample data for Cleaning services with navigation routes
 const services = [
-    { id: '1', name: 'Standard Cleaning', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/StandardCleaning.jpg') },
-    { id: '2', name: 'Deep Cleaning', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/DeepCleaning.jpg') },
-    { id: '3', name: 'Move-In/Move-Out Cleaning', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/Move-In-Move-Out-Cleaning.jpg') },
-    { id: '4', name: 'Post-Construction Cleaning', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/post-construction-cleaning.jpg') },
-    { id: '5', name: 'Green Cleaning', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/GreenCleaning.jpg') },
-    { id: '6', name: 'Carpet Cleaning', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/CarpetCleaning.jpg') },
-    { id: '7', name: 'Window Cleaning', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/WindowsCleaning.jpg') },
-    { id: '8', name: 'Laundry and Ironing Services', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/LaundryAndIroningCleaning.jpg') },
-    { id: '9', name: 'Upholstery Cleaning', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/Upholstery-Cleaning.jpg') },
-    { id: '10', name: 'Disinfection and Sanitization', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/home-disinfection-sanitizationCleaning.jpg') },
+    { id: '1', name: 'Standard Cleaning', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/StandardCleaning.jpg'), route: 'StandardCleaning' },
+    { id: '2', name: 'Deep Cleaning', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/DeepCleaning.jpg'), route: 'DeepCleaning' },
+    { id: '3', name: 'Move-In/Move-Out Cleaning', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/Move-In-Move-Out-Cleaning.jpg'), route: 'MoveinCleaning' },
+    { id: '4', name: 'Post-Construction Cleaning', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/post-construction-cleaning.jpg'), route: 'Post' },
+    { id: '5', name: 'Green Cleaning', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/GreenCleaning.jpg'), route: 'GreenCleaning' },
+    { id: '6', name: 'Carpet Cleaning', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/CarpetCleaning.jpg'), route: 'Carpet' },
+    { id: '7', name: 'Window Cleaning', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/WindowsCleaning.jpg'), route: 'Window' },
+    { id: '8', name: 'Laundry and Ironing Services', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/LaundryAndIroningCleaning.jpg'), route: 'Laundry' },
+    { id: '9', name: 'Upholstery Cleaning', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/Upholstery-Cleaning.jpg'), route: 'Upholstery' },
+    { id: '10', name: 'Disinfection and Sanitization', subtitle: 'include visiting charge', image: require('../../assets/Cleaning/home-disinfection-sanitizationCleaning.jpg'), route: 'Disinfection' },
 ];
 
 const Cleaning = () => {
     const navigation = useNavigation(); // Get the navigation object
 
+    const handleServicePress = (route) => {
+        navigation.navigate(route); // Navigate to the specific screen for the service
+    };
+
     const renderService = ({ item }) => (
-        <TouchableOpacity style={styles.serviceItem}>
+        <TouchableOpacity style={styles.serviceItem} onPress={() => handleServicePress(item.route)}>
             <Image source={item.image} style={styles.serviceImage} />
             <View style={styles.serviceTextContainer}>
                 <Text style={styles.serviceName}>{item.name}</Text>

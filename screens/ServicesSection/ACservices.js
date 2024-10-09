@@ -1,23 +1,27 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, StatusBar, SafeAreaView } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Import the hook
+import { useNavigation } from '@react-navigation/native';
 
 // Sample data for AC services
 const services = [
-    { id: '1', name: 'AC Installation', subtitle: 'include visiting charge', image: require('../../assets/ACservices/ACinstallation.jpg') },
-    { id: '2', name: 'AC Repair', subtitle: 'include visiting charge', image: require('../../assets/ACservices/ACrepair.jpg') },
-    { id: '3', name: 'AC Maintenance', subtitle: 'include visiting charge', image: require('../../assets/ACservices/ACmaintenance.jpg') },
-    { id: '4', name: 'AC Cleaning', subtitle: 'include visiting charge', image: require('../../assets/ACservices/ACcleaning.jpg') },
-    { id: '5', name: 'AC Gas Top-Up', subtitle: 'include visiting charge', image: require('../../assets/ACservices/ACgasTop-up.jpg') },
-    { id: '6', name: 'AC Troubleshooting', subtitle: 'include visiting charge', image: require('../../assets/ACservices/ACtroubleshooting.jpg') },
-    { id: '7', name: 'AC Thermostat', subtitle: 'include visiting charge', image: require('../../assets/ACservices/ACthermostat.jpg') },
+    { id: '1', name: 'AC Installation', subtitle: 'include visiting charge', image: require('../../assets/ACservices/ACinstallation.jpg'), route: 'ACinstallation' },
+    { id: '2', name: 'AC Repair', subtitle: 'include visiting charge', image: require('../../assets/ACservices/ACrepair.jpg'), route: 'ACrepair' },
+    { id: '3', name: 'AC Maintenance', subtitle: 'include visiting charge', image: require('../../assets/ACservices/ACmaintenance.jpg'), route: 'ACmaintenance' },
+    { id: '4', name: 'AC Cleaning', subtitle: 'include visiting charge', image: require('../../assets/ACservices/ACcleaning.jpg'), route: 'ACcleaning' },
+    { id: '5', name: 'AC Gas Top-Up', subtitle: 'include visiting charge', image: require('../../assets/ACservices/ACgasTop-up.jpg'), route: 'ACgastopup' },
+    { id: '6', name: 'AC Troubleshooting', subtitle: 'include visiting charge', image: require('../../assets/ACservices/ACtroubleshooting.jpg'), route: 'ACtroubleshooting' },
+    { id: '7', name: 'AC Thermostat', subtitle: 'include visiting charge', image: require('../../assets/ACservices/ACthermostat.jpg'), route: 'ACthermostat' },
 ];
 
 const ACservices = () => {
     const navigation = useNavigation(); // Get the navigation object
 
+    const handleServicePress = (route) => {
+        navigation.navigate(route); // Navigate to the specific screen for the service
+    };
+
     const renderService = ({ item }) => (
-        <TouchableOpacity style={styles.serviceItem}>
+        <TouchableOpacity style={styles.serviceItem} onPress={() => handleServicePress(item.route)}>
             <Image source={item.image} style={styles.serviceImage} />
             <View style={styles.serviceTextContainer}>
                 <Text style={styles.serviceName}>{item.name}</Text>
@@ -72,11 +76,11 @@ const styles = StyleSheet.create({
         top: 20,
     },
     backIcon: {
-        width: 42, // Made bigger
-        height: 42, // Made bigger
+        width: 42,
+        height: 42,
     },
     headerTitle: {
-        fontSize: 28, // Made bigger
+        fontSize: 28,
         fontWeight: 'bold',
         color: '#000',
     },

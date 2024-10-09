@@ -4,25 +4,29 @@ import { useNavigation } from '@react-navigation/native'; // Import the hook
 
 // Sample data for Electrician
 const services = [
-    { id: '1', name: 'Electrical Installations', subtitle: 'include visiting charge', image: require('../../assets/Electrician/Electricalinstallation.jpg') },
-    { id: '2', name: 'Lighting Installation', subtitle: 'include visiting charge', image: require('../../assets/Electrician/LightingInstallation.jpg') },
-    { id: '3', name: 'Wiring Upgrades', subtitle: 'include visiting charge', image: require('../../assets/Electrician/WiringUpgrades.jpg') },
-    { id: '4', name: 'Electrical Repairs', subtitle: 'include visiting charge', image: require('../../assets/Electrician/Electrical_Repair.jpg') },
-    { id: '5', name: 'Panel Upgrades', subtitle: 'include visiting charge', image: require('../../assets/Electrician/panel-upgrade.jpg') },
-    { id: '6', name: 'Circuit Installation and Repair', subtitle: 'include visiting charge', image: require('../../assets/Electrician/CircuitInstallationandRepair.jpg') },
-    { id: '7', name: 'Safety Inspections', subtitle: 'include visiting charge', image: require('../../assets/Electrician/safety-inspections.jpg') },
-    { id: '8', name: 'Generator Installation', subtitle: 'include visiting charge', image: require('../../assets/Electrician/GeneratorInstallation.jpg') },
-    { id: '9', name: 'Smoke and Carbon Monoxide Detector Installation', subtitle: 'include visiting charge', image: require('../../assets/Electrician/SmokeandCarbonMonoxideDetectorInstallation.jpg') },
-    { id: '10', name: 'Home Automation and Smart Home Devices', subtitle: 'include visiting charge', image: require('../../assets/Electrician/HomeAutomationandSmartHomeDevices.jpg') },
-    { id: '11', name: 'Outlet and Switch Replacement', subtitle: 'include visiting charge', image: require('../../assets/Electrician/OutletandSwitchReplacement.jpg') },
-    { id: '12', name: 'Surge Protection Installation', subtitle: 'include visiting charge', image: require('../../assets/Electrician/SurgeProtectionInstallation.jpg') },
+    { id: '1', name: 'Electrical Installations', subtitle: 'include visiting charge', image: require('../../assets/Electrician/Electricalinstallation.jpg'), route: 'Electricalinstallation' },
+    { id: '2', name: 'Lighting Installation', subtitle: 'include visiting charge', image: require('../../assets/Electrician/LightingInstallation.jpg'), route: 'Lighting' },
+    { id: '3', name: 'Wiring Upgrades', subtitle: 'include visiting charge', image: require('../../assets/Electrician/WiringUpgrades.jpg'), route: 'Wiring' },
+    { id: '4', name: 'Electrical Repairs', subtitle: 'include visiting charge', image: require('../../assets/Electrician/Electrical_Repair.jpg'), route: 'ElectricalRepairs' },
+    { id: '5', name: 'Panel Upgrades', subtitle: 'include visiting charge', image: require('../../assets/Electrician/panel-upgrade.jpg'), route: 'Panel' },
+    { id: '6', name: 'Circuit Installation and Repair', subtitle: 'include visiting charge', image: require('../../assets/Electrician/CircuitInstallationandRepair.jpg'), route: 'Circuit' },
+    { id: '7', name: 'Safety Inspections', subtitle: 'include visiting charge', image: require('../../assets/Electrician/safety-inspections.jpg'), route: 'Safety' },
+    { id: '8', name: 'Generator Installation', subtitle: 'include visiting charge', image: require('../../assets/Electrician/GeneratorInstallation.jpg'), route: 'Generator' },
+    { id: '9', name: 'Smoke and Carbon Monoxide Detector Installation', subtitle: 'include visiting charge', image: require('../../assets/Electrician/SmokeandCarbonMonoxideDetectorInstallation.jpg'), route: 'Smoke' },
+    { id: '10', name: 'Home Automation and Smart Home Devices', subtitle: 'include visiting charge', image: require('../../assets/Electrician/HomeAutomationandSmartHomeDevices.jpg'), route: 'HomeAutomation' },
+    { id: '11', name: 'Outlet and Switch Replacement', subtitle: 'include visiting charge', image: require('../../assets/Electrician/OutletandSwitchReplacement.jpg'), route: 'Outlet' },
+    { id: '12', name: 'Surge Protection Installation', subtitle: 'include visiting charge', image: require('../../assets/Electrician/SurgeProtectionInstallation.jpg'), route: 'Surge' },
 ];
 
 const Electrician = () => {
     const navigation = useNavigation(); // Get the navigation object
 
+    const handleServicePress = (route) => {
+        navigation.navigate(route); // Navigate to the specific screen for the service
+    };
+
     const renderService = ({ item }) => (
-        <TouchableOpacity style={styles.serviceItem}>
+        <TouchableOpacity style={styles.serviceItem} onPress={() => handleServicePress(item.route)}>
             <Image source={item.image} style={styles.serviceImage} />
             <View style={styles.serviceTextContainer}>
                 <Text style={styles.serviceName}>{item.name}</Text>

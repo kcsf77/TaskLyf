@@ -130,19 +130,28 @@ const navigation = useNavigation();
         showsVerticalScrollIndicator={false}
       >
         {/* Header */}
-        <View style={styles.header}>
-          <TouchableOpacity onPress={handleLocationPress} style={styles.locationContainer}>
-            <Image source={require('../assets/icons/Type=Marker.png')} style={styles.locationIcon} />
-            <View>
-              <Text style={styles.locationText}>Current Location</Text>
-              <Text style={styles.locationName}>{currentLocation}</Text>
-            </View>
-            <Image source={require('../assets/icons/Type=Caret Bottom.png')} style={styles.dropdownIcon} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleNotificationPress}>
-            <Image source={require('../assets/icons/Type=Bell.png')} style={styles.notificationIcon} />
-          </TouchableOpacity>
-        </View>
+       <View style={styles.header}>
+  <TouchableOpacity onPress={handleLocationPress} style={styles.locationContainer}>
+    <Image source={require('../assets/icons/Type=Marker.png')} style={styles.locationIcon} />
+    <View>
+      <Text style={styles.locationText}>Current Location</Text>
+      <Text style={styles.locationName}>{currentLocation}</Text>
+    </View>
+    <Image source={require('../assets/icons/Type=Caret Bottom.png')} style={styles.dropdownIcon} />
+  </TouchableOpacity>
+
+  {/* New Image Button beside Notification */}
+  <View style={styles.headerIconsContainer}>
+    <TouchableOpacity onPress={() => console.log('Image button pressed!')}>
+      <Image source={require('../assets/icons/chat (2).png')} style={styles.headerIcon} />
+    </TouchableOpacity>
+    
+    <TouchableOpacity onPress={handleNotificationPress}>
+      <Image source={require('../assets/icons/Type=Bell.png')} style={styles.headerIcon} />
+    </TouchableOpacity>
+  </View>
+</View>
+
 
         {/* Search Bar */}
         <View style={styles.searchBarContainer}>
@@ -470,6 +479,15 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'gray',
   },
+  headerIconsContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+},
+headerIcon: {
+  width: 25,
+  height: 25,
+  marginLeft: 10, // Adds space between the two icons
+},
 });
 
 export default Home;
